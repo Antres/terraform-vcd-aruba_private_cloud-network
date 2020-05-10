@@ -10,3 +10,7 @@ variable "name" {}
 variable "description" {}
 
 variable "network" {}
+
+variable "egress" {
+  default = []
+}
