@@ -17,7 +17,7 @@ resource "vcd_network_routed" "network" {
   netmask         = cidrnetmask(var.network)
 }
 
-module "egress" {
+module "nsxv-egress" {
   source          = "./modules/nsxv/egress"
   
   deploy          = var.deploy
