@@ -1,5 +1,5 @@
 output "name" {
-  value           = try(vcd_network_routed.network[0].name, "");
+  value           = try(vcd_network_routed.network[0].name, "")
 }
 
 output "type" {
@@ -11,5 +11,5 @@ output "region" {
 }
 
 output "object" {
-  value           = try(vcd_network_routed.network[0], "")
+  value           = try(vcd_network_routed.network[0], {})
 }
