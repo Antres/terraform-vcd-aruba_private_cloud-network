@@ -1,5 +1,5 @@
-resource "vcd_nsxv_snat" "egress" {
-  count           = var.region.edge.advanced ? length(var.egress) : 0
+resource "vcd_snat" "egress" {
+  count           = ! var.region.edge.advanced ? 0 : length(var.egress)
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
@@ -7,37 +7,33 @@ resource "vcd_nsxv_snat" "egress" {
   
   description     = "Egress SNAT for ${var.name} network"
   
-  network_type = "ext"
-  network_name = tolist(var.region.edge.external_network)[0].name
+  network_type    = "ext"
+  network_name    = tolist(var.region.edge.external_network)[0].name
 
-  original_address   = var.network
-  translated_address = var.egress[count.index].with_addr
+  internal_ip     = var.network
+  external_ip     = var.egress[count.index].with_addr
 }
 
-resource "vcd_nsxv_firewall_rule" "egress" {
-  count           = var.region.edge.advanced ? length(var.egress) : 0
+resource "vcd_firewall_rules" "egress" {
+  count           = ! var.region.edge.advanced ? 0 : length(var.egress)
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
   edge_gateway    = var.region.edge.name
   
-  name            = "Egress rule for ${var.name} network"
-  source {
-    org_networks  = [var.name]
-  }
+  default_action  = "drop"
   
-  destination {
-    ip_addresses  = [var.egress[count.index].to]
-  }
-
-  dynamic "service" {
-    for_each      = var.egress[count.index].ports
+  dynamic "rule" {
+    for_each      = var.egress
     
     content {
-      port          = split("/", service.value)[0]
-      protocol      = split("/", service.value)[1]
+      description = "Egress rule for ${var.name} network"
+      policy      = "allow"
+      source_ip   = var.network
+      
+      destination_ip  = rule.value.to
+      destination_port = split("/", rule.value.ports[0])[0]
+      protocol         = split("/", rule.value.ports[0])[1]
     }
   }
-  
-  action          = "accept"
 }
