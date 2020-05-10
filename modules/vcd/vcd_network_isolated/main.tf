@@ -10,7 +10,7 @@ resource "vcd_network_isolated" "network" {
   gateway         = var.gateway
   netmask         = var.netmask
   
-  depends_on      = [
-    vcd_network_routed.network,
-  ]
+  lifecycle {
+    create_before_destroy = false
+  }
 }
