@@ -33,7 +33,7 @@ resource "vcd_nsxv_snat" "egress" {
   vdc             = var.region.vdc.name
   edge_gateway    = var.region.edge.name
   
-  description     = "Egress SNAT for ${vcd_network_routed.network.name} network"
+  description     = "Egress SNAT for ${vcd_network_routed.network[count.index].name} network"
   
   network_type = "ext"
   network_name = tolist(var.region.edge.external_network)[0].name
@@ -51,7 +51,7 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   vdc             = var.region.vdc.name
   edge_gateway    = var.region.edge.name
   
-  name            = "Egress rule for ${vcd_network_routed.network.name} network"
+  name            = "Egress rule for ${vcd_network_routed.network[count.index].name} network"
   source {
     org_networks  = [var.name]
   }
