@@ -13,4 +13,8 @@ variable "ingress" {
 }
 
 variable "egress" {
+  type = list(object({
+    to = string
+    with_addr = string
+  }))
 }
