@@ -5,3 +5,15 @@ output "network" {
     region = var.region
   }
 }
+
+output "name" {
+  value           = try(vcd_network_routed.network[0].name, "");
+}
+
+output "type" {
+  value           = "vcd_network_isolated"
+}
+
+output "region" {
+  value           = var.region
+}
