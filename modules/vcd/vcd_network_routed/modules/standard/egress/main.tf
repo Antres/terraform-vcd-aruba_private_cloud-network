@@ -7,8 +7,8 @@ resource "vcd_snat" "egress" {
   
   description     = "Egress SNAT for ${var.name} network"
   
-  network_type    = "ext"
-  network_name    = tolist(var.region.edge.external_network)[0].name
+  #network_type    = "ext"
+  #network_name    = tolist(var.region.edge.external_network)[0].name
 
   internal_ip     = var.network
   external_ip     = var.egress[count.index].with_addr
