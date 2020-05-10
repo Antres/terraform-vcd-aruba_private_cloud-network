@@ -24,7 +24,10 @@ module "nsxv-egress" {
   
   region          = var.region
   
-  network         = vcd_network_routed.network
+  name            = var.name
+  description     = var.description
+  network         = var.network
+  
   egress          = var.egress
   
 }
