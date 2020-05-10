@@ -40,10 +40,14 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   destination {
     ip_addresses  = [var.egress[count.index].to]
   }
-  
-  service {
-    ports         = split("/", var.egress[count.index].ports)[0]
-    protocol      = split("/", var.egress[count.index].ports)[1]
+
+  dynamic "service" {
+    for_each      = var.egress[count.index].ports
+    
+    content {
+      ports         = split("/", var.egress[count.index].ports)[0]
+      protocol      = split("/", var.egress[count.index].ports)[1]
+    }
   }
   
   action          = "accept"
