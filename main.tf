@@ -4,8 +4,8 @@ terraform {
 }
 
 locals {
-  network                   = length(var.ingress) == 0 &&  length(var.egress) == 0 ? module.vcd_network_isolated.network : ""
-  network_type              = length(var.ingress) == 0 &&  length(var.egress) == 0 ? "vcd_network_isolated" : "vcd_network_routed"
+  network                   = local.network_type == "vcd_network_isolated" ? module.vcd_network_isolated.network : tomap({"name"="", "type"=""})
+  network_type              = "vcd_network_isolated"
 }
 
 module "vcd_network_isolated" {
