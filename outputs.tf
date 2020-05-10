@@ -1,5 +1,6 @@
 output "name" {
-  value             = local.network.name
+  #value             = local.network.name
+  value             = var.name
 }
 
 output "type" {
