@@ -45,7 +45,7 @@ resource "vcd_nsxv_firewall_rule" "egress" {
     for_each      = var.egress[count.index].ports
     
     content {
-      ports         = split("/", each.value)[0]
+      port         = split("/", each.value)[0]
       protocol      = split("/", each.value)[1]
     }
   }
