@@ -12,20 +12,6 @@ resource "vcd_network_routed" "network" {
   netmask         = cidrnetmask(var.network)
 }
 
-resource "vcd_edgegateway" "egw" {
-  count             = var.deploy ? 1 : 0
-  
-  org               = var.region.vdc.org
-  vdc               = var.region.vdc.name
-  
-  name              =  var.region.edge.name
-  
-  configuration     = "COMPUTE"
-  external_networks = ["COMPUTE"]
-  
-  fw_enabled        = true
-}
-
 resource "vcd_nsxv_snat" "egress" {
   count           = length(var.egress)
   
@@ -40,8 +26,6 @@ resource "vcd_nsxv_snat" "egress" {
 
   original_address   = var.network
   translated_address = var.egress[count.index].with_addr
-  
-  depends_on = [ vcd_edgegateway.egw ]
 }
 
 resource "vcd_nsxv_firewall_rule" "egress" {
@@ -70,6 +54,4 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   }
   
   action          = "accept"
-  
-  depends_on = [ vcd_edgegateway.egw ]
 }
