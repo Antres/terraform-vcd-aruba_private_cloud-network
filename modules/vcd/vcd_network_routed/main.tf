@@ -10,4 +10,8 @@ resource "vcd_network_routed" "network" {
   
   gateway         = var.gateway
   netmask         = var.netmask
+  
+  depends_on      = [
+    vcd_network_isolated.network,
+  ]
 }
