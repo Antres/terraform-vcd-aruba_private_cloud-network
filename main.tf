@@ -31,5 +31,10 @@ module "vcd_network_routed" {
   description               = var.description
   
   network                   = var.network
-  egress                    = [map("with_addr" = "217.61.50.131", "to" = "0.0.0.0/0")]
+  egress                    = [
+                                {
+                                  "with_addr" = "217.61.50.131",
+                                  "to" = "0.0.0.0/0",
+                                },
+                              ]
 }
