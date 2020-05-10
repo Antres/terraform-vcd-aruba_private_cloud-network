@@ -14,4 +14,14 @@ resource "vcd_network_routed" "network" {
 
 module "egress" {
   source          = "./modules/nsxv/egress"
+  
+  deploy          = var.deploy
+  
+  region          = var.region
+  
+  name            = var.name
+  description     = var.description
+  network         = var.network
+  
+  egress          = var.egress
 }
