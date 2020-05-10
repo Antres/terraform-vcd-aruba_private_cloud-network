@@ -17,4 +17,6 @@ variable "egress" {
     to = string
     with_addr = string
   }))
+  
+  default = []
 }
