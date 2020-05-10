@@ -1,3 +1,8 @@
+terraform {
+  required_version          = "> 0.12.0"
+  experiments               = []
+}
+
 resource "vcd_network_routed" "network" {
   count           = var.deploy ? 1 : 0
   
