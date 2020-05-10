@@ -1,5 +1,5 @@
 resource "vcd_nsxv_snat" "egress" {
-  count           = ! var.region.edge.advanced ? length(var.egress) : 0
+  count           = var.region.edge.advanced ? length(var.egress) : 0
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
@@ -15,7 +15,7 @@ resource "vcd_nsxv_snat" "egress" {
 }
 
 resource "vcd_nsxv_firewall_rule" "egress" {
-  count           = ! var.region.edge.advanced ? length(var.egress) : 0
+  count           = var.region.edge.advanced ? length(var.egress) : 0
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
