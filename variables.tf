@@ -7,3 +7,11 @@ variable "network" {
 }
 
 variable "region" {}
+
+variable "ingress" {
+  default = []
+}
+
+variable "egress" {
+  default = []
+}
