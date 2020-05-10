@@ -9,7 +9,7 @@ locals {
 }
 
 module "network" {
-  source                    = "./modules/vcd/vcd_network_isolated"
+  source                    = "./modules/vcd/${local.network_type}"
   
   region                    = var.region
   
