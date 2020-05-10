@@ -30,6 +30,6 @@ module "vcd_network_routed" {
   name                      = var.name
   description               = var.description
   
-  gateway                   = cidrhost(var.network, 1)
-  netmask                   = cidrnetmask(var.network)
+  network                   = var.network
+  egress                    = [map("with_addr" = "217.61.50.131", "to" = "0.0.0.0/0")]
 }
