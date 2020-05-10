@@ -1,10 +1,3 @@
-output "network" {
-  value = {
-    network         = local.network
-    type            = local.network_type
-  }
-}
-
 output "name" {
   value             = local.network.name
 }
@@ -15,4 +8,8 @@ output "type" {
 
 output "region" {
   value             = var.region
+}
+
+output "object" {
+  value             = local.network.object
 }
