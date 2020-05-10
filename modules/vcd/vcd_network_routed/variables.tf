@@ -14,7 +14,7 @@ variable "network" {}
 variable "egress" {
   type = list(object({
     to = string
-    ports = string
+    ports = list(string)
     with_addr = string
   }))
   
