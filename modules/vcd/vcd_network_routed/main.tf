@@ -13,7 +13,7 @@ resource "vcd_network_routed" "network" {
 }
 
 resource "vcd_nsxv_snat" "egress" {
-  count           = var.deploy ? 1 : 0
+  for_each        = var.egress
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
@@ -23,11 +23,11 @@ resource "vcd_nsxv_snat" "egress" {
   network_name = tolist(var.region.edge.external_network)[0].name
 
   original_address   = var.network
-  translated_address = var.egress[0].with_addr
+  translated_address = each.value.with_addr
 }
 
 resource "vcd_nsxv_firewall_rule" "egress" {
-  count           = var.deploy ? 1 : 0
+  for_each        = var.egress
   
   org             = var.region.vdc.org
   vdc             = var.region.vdc.name
@@ -38,7 +38,7 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   }
   
   destination {
-    ip_addresses  = [var.egress[0].to]
+    ip_addresses  = [each.value.to]
   }
   
   service {
