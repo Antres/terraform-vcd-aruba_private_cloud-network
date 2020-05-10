@@ -4,12 +4,12 @@ terraform {
 }
 
 locals {
-  network                   = module.network.network
+  network                   = local.network_type ? module.vcd_network_isolated.network : ""
   network_type              = "vcd_network_isolated"
 }
 
-module "network" {
-  source                    = "./modules/vcd/${local.network_type}"
+module "vcd_network_isolated" {
+  source                    = "./modules/vcd/vcd_network_isolated"
   
   region                    = var.region
   
