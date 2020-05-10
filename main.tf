@@ -4,7 +4,7 @@ terraform {
 }
 
 locals {
-  network                   = local.network_type ? module.vcd_network_isolated.network : ""
+  network                   = local.network_type == "vcd_network_isolated" ? module.vcd_network_isolated.network : ""
   network_type              = "vcd_network_isolated"
 }
 
