@@ -5,10 +5,6 @@ variable "deploy" {
 
 variable "region" {}
 
-variable "name" {}
-
-variable "description" {}
-
 variable "network" {}
 
 variable "egress" {
