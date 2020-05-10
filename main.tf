@@ -11,7 +11,7 @@ module "network" {
   
   region = var.region
   
-  name = "pippo"
-  gateway = "192.168.0.1"
-  netmask = "255.255.255.0"
+  name = var.name
+  gateway = cidrhost(var.network, 1)
+  netmask = cidrnetmask(var.network)
 }
