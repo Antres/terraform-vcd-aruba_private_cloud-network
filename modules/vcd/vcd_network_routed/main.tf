@@ -46,3 +46,4 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   }
   
   action          = "accept"
+}
