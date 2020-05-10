@@ -25,3 +25,24 @@ resource "vcd_nsxv_snat" "egress" {
   original_address   = var.network
   translated_address = var.egress[0].with_addr
 }
+
+resource "vcd_nsxv_firewall_rule" "egress" {
+  count           = var.deploy ? 1 : 0
+  
+  org             = var.region.vdc.org
+  vdc             = var.region.vdc.name
+  edge_gateway    = var.region.edge.name
+  
+  source {
+    org_networks  = [var.name]
+  }
+  
+  destination {
+    ip_addresses  = [var.egress[0].to]
+  }
+  
+  service {
+    protocol      = "any"
+  }
+  
+  action          = "accept"
