@@ -31,3 +31,18 @@ module "nsxv-egress" {
   egress          = var.egress
   
 }
+
+module "std-egress" {
+  source          = "./modules/standard/egress"
+  
+  deploy          = var.deploy
+  
+  region          = var.region
+  
+  name            = var.name
+  description     = var.description
+  network         = var.network
+  
+  egress          = var.egress
+  
+}
