@@ -1,4 +1,6 @@
 resource "vcd_network_isolated" "network" {
+  count = var.deploy ? 1 : 0
+  
   org = var.region.vdc.org
   vdc = var.region.vdc.name
 
