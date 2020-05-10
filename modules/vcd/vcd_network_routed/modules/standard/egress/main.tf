@@ -30,6 +30,7 @@ resource "vcd_firewall_rules" "egress" {
       description = "Egress rule for ${var.name} network"
       policy      = "allow"
       source_ip   = var.network
+      source_port = "any"
       
       destination_ip  = rule.value.to
       destination_port = split("/", rule.value.ports[0])[0]
