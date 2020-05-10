@@ -17,7 +17,8 @@ resource "vcd_edgegateway" "egw" {
   
   org               = var.region.vdc.org
   vdc               = var.region.vdc.name
-  edge_gateway      =  var.region.edge.name
+  
+  name              =  var.region.edge.name
   
   configuration     = "COMPUTE"
   external_networks = ["COMPUTE"]
