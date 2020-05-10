@@ -42,7 +42,8 @@ resource "vcd_nsxv_firewall_rule" "egress" {
   }
   
   service {
-    protocol      = "any"
+    ports         = split("/", var.egress[count.index].ports)[0]
+    protocol      = split("/", var.egress[count.index].ports)[1]
   }
   
   action          = "accept"
