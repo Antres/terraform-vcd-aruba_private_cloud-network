@@ -11,5 +11,5 @@ output "region" {
 }
 
 output "object" {
-  value           = try(vcd_network_isolated.network[0], "")
+  value           = try(vcd_network_isolated.network[0], {})
 }
