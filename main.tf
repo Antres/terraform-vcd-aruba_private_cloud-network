@@ -4,14 +4,18 @@ terraform {
 }
 
 locals {
+  network                   = module.network.network
+  network_type              = "vcd_network_isolated"
 }
 
 module "network" {
-  source = "./modules/vcd/vcd_network_isolated"
+  source                    = "./modules/vcd/vcd_network_isolated"
   
-  region = var.region
+  region                    = var.region
   
-  name = var.name
-  gateway = cidrhost(var.network, 1)
-  netmask = cidrnetmask(var.network)
+  name                      = var.name
+  description               = var.description
+  
+  gateway                   = cidrhost(var.network, 1)
+  netmask                   = cidrnetmask(var.network)
 }
